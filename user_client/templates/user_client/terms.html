@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .head {
+        position: relative;
+        
+      }
+      .container-head{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container-head {
+        text-align: center;
+        position: relative;
+      }
+      
+      .container-head h1 {
+        font-size: 3rem;
+        color: #af946a;
+        position: relative;
+        cursor: pointer; /* Add a pointer cursor on hover */
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
+        display: inline-block; /* Make the h1 inline-block to fit the hr element */
+      }
+      
+      .container-head h1::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: -10px; /* Adjust this value to control the distance of the reflection */
+        left: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+        transform: scaleY(-1);
+        z-index: -1;
+      }
+      
+      /* Add the bounce effect on hover */
+      .container-head h1:hover {
+        transform: translateY(-5px); /* Adjust this value for the bounce height */
+      }
+      
+      /* Style the hr element */
+      .hr-blurry {
+        border: none;
+        height: 3px; /* Adjust the height of the line */
+        background: linear-gradient(to right, transparent 0%, #af946a 25%, #af946a 75%, transparent 100%);
+        border-radius: 5px;
+      }
+      h5{
+        font-weight:bold;
+        
+      }
+      @media(min-width: 1024px){
+        .terms{
+        padding-left:150px;
+        padding-right:150px;
+        padding-top:10px;
+      }
+    }
+
+
+  p {
+      font-size: 16px;
+      line-height: 1.5;
+  }
+  /* Media Query for Mobile Responsiveness */
+  @media (max-width: 600px) {
+  
+      p {
+          font-size: 14px;
+      }
+  }
+</style>
+<div class="container-head head">
+    <h1 style="font-size:3rem;"> Terms and conditions</h5>
+    </div>
+    <hr  class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:-5PX ;"> 
+    
+
+    <div class="container-fluid terms" style="padding-top:50px">
+        <h5> Introduction</h5>
+            <p>
+                Welcome to L'Île O Spa's website! We are delighted to have you visit our online platform. Before you explore and enjoy the services we offer, please take a moment to read and understand the terms and conditions outlined below. By accessing or using our website, you agree to comply with and be bound by these terms and conditions. These terms are designed to ensure a pleasant and secure experience for both you and L'Île O Spa.
+
+                Please review these terms carefully. If you do not agree with any part of these terms and conditions, we kindly ask that you refrain from using our website. Your continued use of the site following any updates or modifications to these terms constitutes your acceptance of those changes.
+
+                At L'Île O Spa, our primary goal is to provide you with exceptional spa services and a user-friendly website experience. Your satisfaction and comfort are of utmost importance to us, and these terms and conditions help us maintain the highest standards of service and security.
+            </p>
+          </div>
+            <div class="container-fluid terms">
+                <h5>Booking and Reservations
+                </h5>
+                <p>At L'Île O Spa, we've designed a seamless booking and reservation process to ensure your experience with us is as convenient as it is relaxing. Here's a step-by-step guide on how you can book your spa experience through our website:</p>
+                <ul>
+                    <li><strong> Choose Your Reservation Date</strong> Begin by selecting your preferred date for your spa reservation. We offer flexible scheduling to accommodate your busy lifestyle.</li>
+                <li>
+                    <strong> Select Your Preferred Location:</strong> L'Île O Spa is proud to have two exquisite spa locations for you to choose from. Pick the one that suits your preferences and convenience.
+                </li>
+                <li>
+                    <strong>Choose Your Desired Room:</strong>Our spa locations feature a variety of beautifully appointed rooms, each offering a unique ambiance. Select the room that resonates with your relaxation goals.
+                </li>
+                <li>
+                    <strong>Pick Your Preferred Time Slot:</strong>To ensure a tranquil atmosphere, we offer carefully spaced time slots for our guests. Choose the time that works best for you.
+                </li>
+                <li>
+                    <strong> Select Your Desired Formula:</strong>Customize your spa experience by choosing from our range of spa formulas. Whether you're looking for a soothing massage, a rejuvenating facial, or a comprehensive spa package, we have something to meet your needs.
+                </li>
+                <li>
+                    <strong> Explore Our Activities:</strong> Enhance your spa day by exploring our additional activities. We offer a wide array of options, including meals, drinks, therapies, and various recreational activities. Tailor your experience to create the perfect day of relaxation.
+                </li>
+                </ul>
+
+            </div>
+
+            <div class="container-fluid terms">
+                <p><strong>Payment Options:</strong>
+                You have two convenient payment options when booking your reservation with us:</p>
+                
+                <p><strong>Pay Online:</strong> If you're booking for two guests, simply select "Number of Guests: 2" during your reservation, and you'll be prompted to pay for both guests online in a single transaction.</p>
+                
+                <p><strong>Pay Onsite:</strong> Alternatively, you can choose to pay for one guest's reservation online, and the second guest's reservation can be settled when you arrive at our spa location. Our friendly staff will be happy to assist you with the payment process. </p>   
+            </div>
+            <div class="container-fluid terms">
+                <h5>Cancellation Policy (Currently Not Available):</h5>
+                Please note that as of now, we do not have a cancellation policy in place. You can book your reservation with confidence, knowing that you have the flexibility to adjust your plans if needed. We appreciate your understanding, and any future updates to our cancellation policy will be communicated clearly.</p>
+            </div>
+            <div class="container-fluid terms">
+                <h5>Privacy and Data Security:</h5>
+                <p>At L'Île O Spa, we are committed to safeguarding your privacy and ensuring the security of your personal information. This section outlines how we collect, use, and protect customer data, as well as addresses relevant data protection regulations, such as GDPR compliance where applicable, and our use of cookies and tracking technologies.</p>
+            </div>
+            <div class="container-fluid terms">
+                <h5>Collection of Customer Data:</h5>
+                <p>When you use our website for booking and reservations, we may collect certain personal information to enhance your experience and ensure the quality of our services. This data may include your name, contact details, reservation preferences, and payment information. Rest assured that we collect and handle this information with the utmost care and respect for your privacy.</p>
+            </div>
+
+            <div class="container-fluid terms">
+                <h5>Use of Customer Data:</h5>
+                <p>We use the customer data we collect for various purposes, including:
+
+                -To process and confirm your spa reservations.
+                -To provide you with important information related to your bookings.
+                -To personalize your spa experience based on your preferences.
+                -To improve our website and services through analytics and customer feedback.
+                -To communicate with you about special offers, promotions, and updates with your consent.</p>
+            
+                <h5>
+                    Protection of Customer Data:
+                </h5>
+                <p>We employ industry-standard security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction. Our secure systems and protocols ensure the confidentiality and integrity of your data.</p>
+                
+                <h5>Cookies and Tracking Technologies:</h5>
+                <p>Our website may use cookies and other tracking technologies to enhance your browsing experience. Cookies are small text files stored on your device that help us analyze website traffic, improve functionality, and tailor content to your preferences. By using our website, you consent to the use of cookies in accordance with our Cookie Policy. You can adjust your cookie settings in your browser if you wish to manage or disable them.
+
+                    By using our website, you acknowledge and agree to the practices outlined in this Privacy and Data Security section. If you have any questions or concerns regarding your data privacy, please contact us through the provided contact information. Your trust is of utmost importance to us, and we are committed to protecting your data and providing you with a secure and enjoyable experience at L'Île O Spa.</p>
+            </div>
+            <div class="container-fluid terms">
+              <div class="">
+                <h5>Termination and Changes:</h5>
+                <p>At L'Île O Spa, we are committed to providing you with a positive and secure online experience. This  outlines our rights and procedures regarding the termination or suspension of customer accounts and how we notify our valued customers of any changes to our terms and conditions.</p>
+            </div>
+            
+            <div class="">
+                <h5>Termination or Suspension of Customer Accounts:</h5>
+                <p>L'Île O Spa reserves the right to terminate or suspend customer accounts or access to our website under the following circumstances:</p>
+                <ul>
+                    <li>Violation of Terms: We may take such action if a customer is found to be in violation of these terms and conditions or engages in any unauthorized, fraudulent, or illegal activities on our website.</li>
+                    <li>Security Concerns: In the interest of security and the protection of our customers and our platform, we may suspend or terminate accounts in cases of suspected unauthorized access, breaches, or other security concerns.</li>
+                    <li>Non-Compliance: Failure to comply with our policies, including our Privacy and Data Security, Intellectual Property, or any other policy outlined in these terms and conditions, may result in the termination or suspension of customer accounts.</li>
+                </ul>
+            </div>
+            
+            <div class="">
+                <h5>Notification of Changes:</h5>
+                <p>L'Île O Spa is committed to transparency and keeping our customers informed. If we make any changes to these terms and conditions, we will take the following steps to notify our customers:</p>
+                <ol>
+                    <li>Notification on Website: We will prominently display a notice on our website indicating that changes have been made to the terms and conditions. This notice will include the effective date of the changes.</li>
+                    <li>Email Notification: If you have provided us with your email address, we may send an email notification informing you of the updates to the terms and conditions. It is essential to keep your contact information up to date to receive such notifications.</li>
+                    <li>Review Opportunity: We encourage our customers to review the updated terms and conditions to understand the changes. By continuing to use our website after the effective date of the changes, you indicate your acceptance of the updated terms and conditions.</li>
+                </ol>
+            </div>
+            <div class="">
+              <h5>Miscellaneous:</h5>
+              <p>In this , we address some important miscellaneous clauses to ensure clarity and understanding of our terms and conditions.</p>
+          </div>
+          
+          <div class="">
+              <h5>Governing Law:</h5>
+              <p>These terms and conditions, as well as any disputes arising from or related to your use of our website and services, shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles.</p>
+          </div>
+          
+          <div class="">
+              <h5>Severability:</h5>
+              <p>If any provision of these terms and conditions is found to be invalid, illegal, or unenforceable by a court of competent jurisdiction, the invalidity, illegality, or unenforceability of such provision shall not affect the remaining provisions, which shall remain in full force and effect.</p>
+          </div>
+          
+          <div class="">
+              <h5>Entire Agreement:</h5>
+              <p>These terms and conditions constitute the entire agreement between you and L'Île O Spa regarding your use of our website and services, and they supersede any prior or contemporaneous agreements, representations, or understandings, whether oral or written.</p>
+          </div>
+      
+          <div class="">
+              <h5>Contact Information:</h5>
+              <p>Should you have any questions, concerns, or need assistance with any aspect of our services, please do not hesitate to get in touch with us. We are here to help.</p>
+          </div>
+          
+          <div class="">
+              <h5>Customer Support:</h5>
+              <ul>
+                  <li>Phone: +32 69 30 64 97</li>
+                  <li>Email: info@lileospa.com</li>
+              </ul>
+          </div>
+            </div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,675 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  /* Style for nav-links */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    
+  }
+
+  .nav-link:hover {
+    background-color: #f8f9fa;
+    border: 2px solid #d3d3d3;
+    cursor: pointer;
+  }
+
+  .nav-link.active {
+    background-color: #c09d69;
+    border-color: #b39261;
+    color: #fff;
+  }
+
+  /* Tooltip style for description */
+  .nav-link .tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 11px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  /* Tooltip visibility on hover only for larger screens */
+  @media (min-width: 1024px) {
+    .nav-link:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    .con {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: -30px;
+    }
+  }
+
+
+  .py-3{
+    margin-bottom: -23px;
+  }
+
+ .card-image{
+  border-radius: 10px;
+
+ }
+.image-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+padding-bottom: 4px;
+}
+  .button-div{
+    display: flex;
+    justify-content: right;
+    align-items: right;
+  }
+  .card-title{
+    padding-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    
+  }
+
+
+.card {
+  position: relative;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+.card .card-body {
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 100px;
+}
+
+
+
+.card:hover .card-body {
+    max-height: 300px;
+    .image-div{
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+.image-div {
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card:hover .image-div {
+    transform: scale(1.05);
+}
+
+.description-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#f3eee7;
+    color: #888;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2; /* Ensure the overlay is above the image */
+}
+
+.card:hover .description-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.card:hover .card-title {
+  color: #888;
+}
+.card-title {
+    margin-top: -30px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.card:hover .price-time-row{
+  visibility:hidden;
+}
+
+.card-price {
+    color: #888;
+}
+.card-time{
+  color:#888;
+}
+
+.button-div {
+    margin-top: -5px;
+    position: relative;
+    z-index: 3; /* Ensure the button is above the overlay */
+}
+.price-time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-btn {
+  display: block;
+  width: 100%;
+  max-width: 200px; /* Set a maximum width if needed */
+  margin: 0 auto;
+  background-color:#b39267 ;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #f8f9fa;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.date-btn a{
+  text-decoration:none;
+}
+.date-btn a:hover{
+  text-decoration:none;
+  color:#f3eee7;  
+}
+.date-btn:hover {
+  background-color: #ddd;
+  
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 1024px) {
+ 
+  .container_second{
+    width: 100%;
+    padding-left: 5px;
+    padding-right:2px;
+  }
+  .mobi{
+    margin-left:0px;
+    margin-right:0px;
+  }
+  .col-md-4{
+    padding-left:8px;
+    padding-right:8px;
+  }
+}
+
+{% comment %} -----------------------------header -------------------------------------- {% endcomment %}
+.head::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+.head:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.head::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: #f3eee7;
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+.head {
+  position: relative;
+  font-size: 5rem;
+}
+
+html {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+@media (max-width: 1024px) {
+  /* Styles for screens up to 767px width (mobile devices) */
+.text-center{
+  padding-bottom:25px;
+}
+  .card {
+      position: relative;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1;
+      display: block;
+      margin-bottom: 20px; /* Add spacing between cards */
+  }
+
+  .card .card-body {
+      position: relative;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      max-height: 115px;
+  }
+
+  .card:hover .card-body {
+      max-height: 300px;
+  }
+
+  .card-description {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+      color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      width:100%;
+  }
+
+  .card:hover .card-description {
+      opacity: 1;
+      pointer-events: auto;
+      width:100%;
+  }
+
+  .button-div {
+      margin-top: 10px;
+  }
+
+}
+.container-head {
+  text-align: center;
+  position: relative;
+}
+
+.container-head h1 {
+  font-size: 3rem;
+  color: #af946a;
+  position: relative;
+  cursor: pointer; /* Add a pointer cursor on hover */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+  display: inline-block; /* Make the h1 inline-block to fit the hr element */
+}
+
+.container-head h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: -10px; /* Adjust this value to control the distance of the reflection */
+  left: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+  transform: scaleY(-1);
+  z-index: -1;
+}
+
+/* Add the bounce effect on hover */
+.container-head h1:hover {
+  transform: translateY(-5px); /* Adjust this value for the bounce height */
+}
+
+/* Style the hr element */
+.hr-blurry {
+  border: none;
+  height: 3px; /* Adjust the height of the line */
+  background: linear-gradient(to right, transparent 0%, #af946a 25%, #af946a 75%, transparent 100%);
+  border-radius: 5px; /* Add border-radius for curved edges */
+}
+.col-md-6:hover {
+  transform: scale(1.1); /* Adjust the scale factor as needed */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+  
+</style>
+
+<header class="text-white py-3">
+  <div class="container con">
+        <nav>
+      <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" data-content="activities" href="#">
+              Spa Activities
+              <span class="tooltip">Explore our spa activities</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-content="hygiene" href="#">
+              Hygiene
+              <span class="tooltip">Learn about hygiene practices</span>
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-content="drinks" href="#">
+            Drinks
+            <span class="tooltip">Discover our refreshing drinks</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-content="meals" href="#">
+            Meals
+            <span class="tooltip">Delicious meals for every taste</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<hr class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:5px ;"> 
+<div class="container mt-5" Style="margin-top:-50px;">
+  <div id="activities" class="menu-content">
+    <div class="container-head head">
+      <h1 style="font-size:3rem;"> Spa Activities</h1>
+      </div>
+      <div class="row mobi">
+          {% for activity in activities %}
+          <div class="col-md-4 mb-4"> <!-- Increase margin-bottom here -->
+              <div class="card">
+                  <div class="image-div">
+                      <img class="card-image" src="{{ activity.act_image.url }}" alt="{{ activity.act_name }}">
+                  </div>
+                  <div class="card-body">
+                      <h3 class="card-title">{{ activity.act_name }}</h3>
+                      <div class="price-time-row">
+                          <p class="card-price">Price: €{{ activity.act_price }}</p>
+                          <p class="card-time">Session: {{ activity.act_time }} mins</p>
+                      </div>
+                      <div class="description-overlay">
+                          <p class="card-description">{{ activity.act_des }}</p>
+                      </div>
+                      <div class="button-div">
+                          <button class="btn btn-success add-button" data-item-name="{{ activity.act_name }}" data-item-price="{{ activity.act_price }}">Add</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container mt-5">
+  <div id="hygiene" class="menu-content d-none">
+    <div class="container-head head">
+      <h1 style="font-size:3rem;"> hygiene Services</h1>
+      </div>
+      <div class="row mobi">
+        {% for hygiene in hygienes %}
+          <div class="col-md-4 mb-4"> <!-- Increase margin-bottom here -->
+              <div class="card">
+                  <div class="image-div">
+                      <img class="card-image" src="{{hygiene.hyg_image.url}}" alt="{{hygiene.hyg_name}}">
+                  </div>
+                  <div class="card-body">
+                      <h3 class="card-title">{{ hygiene.hyg_name }}</h3>
+                      <div class="price-time-row">
+                          <p class="card-price">Price: <strong>€</strong>{{ hygiene.hyg_price }}</p>
+                          <p class="card-time"></p>
+                      </div>
+                      <div class="description-overlay">
+                          <p class="card-description">{{ hygiene.hyg_des }}</p>
+                      </div>
+                      <div class="button-div">
+                          <button class="btn btn-success add-button" data-item-name="{{ hygiene.hyg_name }}" data-item-price="{{ hygiene.hyg_price }}">Add</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+<div class="container mt-5">
+  <div id="drinks" class="menu-content d-none">
+    <div class="container-head head">
+      <h1 style="font-size:3rem;"> Available Drinks</h1>
+      </div>      <div class="row mobi">
+        {% for drink in drinks %}
+          <div class="col-md-4 mb-4"> <!-- Increase margin-bottom here -->
+              <div class="card">
+                  <div class="image-div">
+                      <img class="card-image" src="{{drink.drink_image.url}}" alt="{{ drink.drink_name }}">
+                  </div>
+                  <div class="card-body">
+                      <h3 class="card-title">{{ drink.drink_name }}</h3>
+                      <div class="price-time-row">
+                          <p class="card-price">Price: €{{ drink.drink_price }}</p>
+                          <p class="card-time">type: {{ drink.drink_type }} </p>
+
+                      </div>
+                      <div class="button-div">
+                          <button class="btn btn-success add-button" data-item-name="{{ drink.drink_name }}" data-item-price="{{ drink.drink_price }}">Add</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div id="meals" class="menu-content d-none">
+    <div class="container-head head">
+      <h1 style="font-size:3rem;"> Available Meals</h1>
+      </div>
+      <div class="row mobi">
+        {% for meal in meals %}
+          <div class="col-md-4 mb-4"> <!-- Increase margin-bottom here -->
+              <div class="card">
+                  <div class="image-div">
+                      <img class="card-image" src="{{meal.meal_image.url}}" alt="{{ meal.meal_name }}">
+                  </div>
+                  <div class="card-body">
+                      <h3 class="card-title">{{ meal.meal_name }}</h3>
+                      <div class="price-time-row">
+                          <p class="card-price">Price: €{{ meal.meal_price }}</p>
+                          <p class="card-time">category: {{ meal.meal_type }} </p>
+                      </div>
+                      <div class="description-overlay">
+                          <p class="card-description">{{ meal.meal_des }}</p>
+                      </div>
+                      <div class="button-div">
+                          <button class="btn btn-success add-button" data-item-name="{{ meal.meal_name }}" data-item-price="{{ meal.meal_price }}">Add</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+
+  <div class="messages-container">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" 
+             onclick="this.style.opacity = '0'; setTimeout(() => this.style.display = 'none', 300);">
+            {{ message }}
+            <span class="close-btn">&times;</span>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+  <div class="row mt-3">
+    <div class="col-md-12 text-center">
+      {% if user.is_authenticated %}
+      <button class="date-btn btn-lg button" type="submit" id="viewReservationsLink">
+        
+      <a style="color:black;" href='{% url "confirmReservation" %}'>View Reservations</a>
+    </button>
+    {% else %}
+    <button class="date-btn btn-lg button" type="submit" id="viewReservationsLink">
+      <a style="color:black;" href='{% url "LoginRegister" %}'>View Reservations</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const navLinks = document.querySelectorAll(".nav-link");
+  const menuContents = document.querySelectorAll(".menu-content");
+  const buttomButton =document.getElementById('viewReservationsLink')
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const contentId = link.getAttribute("data-content");
+
+      menuContents.forEach(content => {
+        content.classList.add("d-none");
+      });
+
+      document.getElementById(contentId).classList.remove("d-none");
+
+      navLinks.forEach(navLink => {
+        navLink.classList.remove("active");
+      });
+
+      // Add active class to the clicked nav-link
+      link.classList.add("active");
+    });
+  });
+  
+
+  const selectedItems = {};
+
+    const showMessage = (itemName, success, added) => {
+      const action = added ? 'has been added to' : 'has been removed from';
+      const cleanName = itemName.replace(/'/g, "");
+      const message = `'${cleanName}' ${action} your Reservation.`;
+      const messageDiv = document.createElement("div");
+      messageDiv.textContent = message;
+      messageDiv.classList.add("alert", success ? "alert-success" : "alert-danger");
+      messageDiv.style.position = "fixed";
+      messageDiv.style.top = "4px";
+      messageDiv.style.left = "50%";
+      messageDiv.style.transform = "translateX(-50%)";
+      messageDiv.style.zIndex = "999";
+      messageDiv.style.padding = "8px";
+      messageDiv.style.borderRadius = "5px";
+      messageDiv.style.width = "100%";
+      
+      messageDiv.style.background = success ? "#05661d" : "#d9534f";
+      messageDiv.style.color = "#fff";
+      document.body.appendChild(messageDiv);
+
+      setTimeout(() => {
+        messageDiv.remove();
+      }, 1500);
+    };
+
+    const viewReservationsButton = document.getElementById("viewReservationsLink");
+  
+    const updateViewReservationsButton = () => {
+      if (Object.keys(selectedItems).length > 0) {
+        viewReservationsButton.removeAttribute("disabled");
+      } else {
+        viewReservationsButton.setAttribute("disabled", "true");
+      }
+    };
+    updateViewReservationsButton();
+
+    document.querySelectorAll(".menu-content").forEach(content => {
+      const category = content.id;
+
+      
+content.querySelectorAll(".add-button").forEach(button => {
+  button.addEventListener("click", () => {
+    const itemName = button.getAttribute("data-item-name");
+    const itemPrice = button.getAttribute("data-item-price");
+
+    if (!selectedItems[category]) {
+      selectedItems[category] = {};
+    }
+
+    if (button.classList.contains("btn-danger")) {
+      // Remove the item from selectedItems
+      delete selectedItems[category][itemName];
+      if (Object.keys(selectedItems[category]).length === 0) {
+        delete selectedItems[category];
+      }
+
+      showMessage(itemName, false, false);
+    } else {
+      // Add the item to selectedItems
+      selectedItems[category][itemName] = itemPrice;
+
+      showMessage(itemName, true, true);
+    }
+
+    // Toggle the button state immediately
+    button.classList.toggle("btn-danger");
+    button.classList.toggle("btn-primary");
+    button.textContent = button.classList.contains("btn-danger") ? "Remove" : "Add";
+
+    updateViewReservationsButton();
+        
+        // Send selected items to Django using AJAX
+        fetch("/update_selected_items/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+            body: JSON.stringify({ selected_items: selectedItems }) 
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data.message);
+            });
+
+          
+        });
+      });
+    });
+  </script>
+  
+{% endblock content %}

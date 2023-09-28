@@ -1,0 +1,460 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+
+/* Style the table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Style the "View Details" button */
+.btn-info {
+    background-color: #17a3b8;
+    color: #fff;
+    border: none;
+}
+
+
+/* Add some padding and margin for better spacing on mobile */
+@media (max-width: 1024px) {
+    .phone{
+        font-size: 2.4rem;
+    }
+    .container {
+        margin: 5px;
+        padding: 5px;
+    }
+    .destop{
+        display:none;
+    }
+    .mobile{
+        display:flex;
+    }
+    .mobi{
+        margin-left:0px;
+        margin-right:0px;
+      }
+    .table th,
+    .table td {
+        padding: 5px;
+        font-size: 10px; /* Adjust font size for readability on small screens */
+    }
+
+    .btn-info {
+        padding: 6px 10px;
+    }
+}
+.head::before {  
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+  
+  .head:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .head::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background: #f3eee7;
+    z-index: -1;
+    transition: transform .3s ease;
+  }
+  .appointment-btn{
+  
+    color: #f5faf6;
+    border: none;
+    border-radius: 1px;
+    background-color: #b39261;
+  }
+  .head {
+    position: relative;
+    
+  }
+  .container-head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-head {
+    text-align: center;
+    position: relative;
+  }
+  
+  .container-head h1 {
+    
+    color: #af946a;
+    position: relative;
+    cursor: pointer; /* Add a pointer cursor on hover */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+    display: inline-block; /* Make the h1 inline-block to fit the hr element */
+  }
+  
+  .container-head h1::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: -10px; /* Adjust this value to control the distance of the reflection */
+    left: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+    transform: scaleY(-1);
+    z-index: -1;
+  }
+  @media(min-width: 1024px){
+    .mobile{
+        display: none;
+    }
+    .container-head h1 {
+        font-size: 3rem;
+        color: #af946a;
+        position: relative;
+        cursor: pointer; /* Add a pointer cursor on hover */
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
+        display: inline-block; /* Make the h1 inline-block to fit the hr element */
+      }
+  }
+  /* Add the bounce effect on hover */
+  .container-head h1:hover {
+    transform: translateY(-5px); /* Adjust this value for the bounce height */
+  }
+  
+  /* Style the hr element */
+  .hr-blurry {
+    border: none;
+    height: 3px; /* Adjust the height of the line */
+    background: linear-gradient(to right, transparent 0%, #af946a 25%, #af946a 75%, transparent 100%);
+    border-radius: 5px; /* Add border-radius for curved edges */
+  }
+  .a{
+    color:#fff;
+
+  }
+  .button-shake {
+    display: inline-block;
+    animation: shake 4s infinite, wait 4s 1s; /* Shake for 4 seconds, then wait for 4 seconds before shaking again */
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+  @keyframes wait {
+    0%, 100% { transform: translateX(0); }
+  }
+  .button-vibrate {
+  display: inline-block;
+  animation: vibrate 1s ease-in-out 5s infinite;
+}
+
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(4px);
+  }
+}
+
+  .button-vibrate:hover {
+    animation-play-state: paused; /* Pause the animation on hover */
+  }
+  .overlay {
+    display: none;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 24px;
+    color: white;
+    z-index: 9999; /* Ensure it's above other elements */
+}
+
+
+</style>
+    {% if not reservations_with_details %}
+    <div class="container-head head" Style="margin-top:5%;">
+        <h1 class="phone"> sorry <strong>{{user.username.upper}}</strong> you  dont have any Reservations </h1>
+        </div>
+        <div style="display:flex;justify-content:center; align-items:center; padding-top:3%; padding-bottom:3%;">
+        <button class="btn button appointment-btn button-vibrate">
+            <a href='{% url "reserveDate" %}' class=' a btn'>Reserve Now</a>
+        </button>
+    </div>
+              {% else %}
+    <div class="container-head head">
+        <h1 style="font-size:3rem;"> Reservations </h1>
+        </div>
+        <hr  class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:-5PX ;">
+    <div class="container mobi">
+        <div class="table-responsive">
+        <table id="reservationTable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Created On</th>
+                    <th>Payment Status</th>
+                    <th>Payment Amount</th>
+                    <th>Reservation Details</th>
+                    {% if reservation.check_people == '1_paid' %}
+                    <th> paid value</span></th>
+                    {% endif%}
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation, details in reservations_with_details %}
+                <tr>
+                    <td>{{ reservation.res_id }}</td>
+                    <td>{{ reservation.created }}</td>
+                    <td>
+                        {% if reservation.payment_status %}
+                            <span class="text-success">Paid</span>
+                        {% else %}
+                            <span class="text-danger">Pending</span>
+                            <a href="{% url 'complete_payment' %}?payment_id={{ reservation.res_id  }}&price={{ reservation.payment_amount}}" class="btn btn-primary btn-pay destop">Pay now</a>
+                            <a href="{% url 'complete_payment' %}?payment_id={{ reservation.res_id  }}&price={{ reservation.payment_amount}}" class="btn btn-primary btn-pay btn-sm mobile">Pay</a>
+                        
+                        {% endif %}
+                    </td>                    <td>{{ reservation.payment_amount }} €</td>
+                    {% if reservation.check_people == '1_paid'%}
+                    <td> <span style="color: yellow;">half paid</span></td>
+                    {% endif%}
+                    <td>
+                        
+                        <!-- "View Details" button to open the modal -->
+                        <button type="button" class="btn btn-info view-details destop" data-bs-toggle="modal" data-bs-target="#reservationDetailsModal{{ reservation.res_id }}">
+                            View Details
+                        </button>
+                        <button type="button" class="btn btn-info view-details mobile btn-sm" data-bs-toggle="modal" data-bs-target="#reservationDetailsModal{{ reservation.res_id }}">Details
+                        </button>
+                        <button class="btn btn-danger btn-delete destop" data-res-id="{{ reservation.res_id }}">Delete</button>
+                        <button class="btn btn-danger btn-delete mobile btn-sm" data-res-id="{{ reservation.res_id }}">Delete</button>
+
+
+                        <!-- Modal for reservation details -->
+                        <div class="modal fade" id="reservationDetailsModal{{ reservation.res_id }}" tabindex="-1" aria-labelledby="reservationDetailsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="reservationDetailsModalLabel">Reservation Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Location:</strong> {{ details.location }}</p>
+                                        <p><strong>Room:</strong> {{ details.room }}</p>
+                                        <p><strong>Date:</strong> {{ details.date }}</p>
+                                        <p><strong>Seats:</strong> {{ details.seats }}</p>
+                                        <p><strong>Time:</strong> {{ details.time }}</p>
+                                        <p><strong>Formula Name:</strong> {{ details.formula_name }}</p>
+                                        <p><strong>Formula Price:</strong> {{ details.formula_price }} €</p>
+                                        
+                                        <p><strong>Activities:</strong></p>
+                                        <ul>
+                                            {% for activity_name, activity_price in details.activities.activities.items %}
+                                                <li><strong>{{ activity_name }}:</strong> {{ activity_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Meals:</strong></p>
+                                        <ul>
+                                            {% for meal_name, meal_price in details.activities.meals.items %}
+                                                <li><strong>{{ meal_name }}:</strong> {{ meal_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Drinks:</strong></p>
+                                        <ul>
+                                            {% for drink_name, drink_price in details.activities.drinks.items %}
+                                                <li><strong>{{ drink_name }}:</strong> {{ drink_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Hygiene:</strong></p>
+                                        <ul>
+                                            {% for hygiene_name, hygiene_price in details.activities.hygiene.items %}
+                                                <li><strong>{{ hygiene_name }}:</strong> {{ hygiene_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="deletingOverlay" class="overlay ">
+           please wait Deleting...
+        </div>
+        
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="close" data-dismiss="modal" id="closepopup" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this reservation?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align:center;" id="successModalLabel">Success</h5>
+                <button type="button" class="close" id="succesdelet" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Reservation deleted successfully.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align:center;" id="successModalLabel">Error</h5>
+                <button type="button" class="close" id="errordelet" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                An error occurred while deleting the reservation.
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+    {% endif %}
+
+    <!-- Add Bootstrap and DataTables JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.10/js/jquery.dataTables.min.js"></script>
+  
+    
+    <script>
+        $('#deletingOverlay').hide();
+        
+        $('.btn-delete').on('click', function() {
+            var resId = $(this).data('res-id');
+
+
+            
+            
+            // Set the resId to a data attribute for the confirmDelete button
+            $('#confirmDelete').data('res-id', resId);
+            
+            // Open the confirmation modal
+            $('#deleteConfirmationModal').modal('show');
+        });
+    
+        $('#confirmDelete').on('click', function() {
+            $('#deletingOverlay').show();
+            var resId = $(this).data('res-id');
+            
+            // Send a DELETE request to the server
+            $.ajax({
+                url: `/delete_reservation/${resId}/`,
+                type: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": '{{ csrf_token }}' // Use the CSRF token from the JavaScript variable
+                },
+                success: function(response) {
+                    // Display the success modal
+                    $('#successModal').modal('show');
+
+                    $('#deletingOverlay').hide();
+                },
+                error: function(error) {
+                    $('#ErrorModal').modal('show');
+                    $('#deletingOverlay').hide();
+                }
+            });
+    
+            // Close the confirmation modal
+            $('#deleteConfirmationModal').modal('hide');
+        });
+        document.getElementById('closeButton').addEventListener('click', function () {
+            // Close the modal
+            $('#deleteConfirmationModal').modal('hide');
+        });
+
+        document.getElementById('closepopup').addEventListener('click', function () {
+            // Close the modal
+            $('#deleteConfirmationModal').modal('hide');
+        });
+        document.getElementById('succesdelet').addEventListener('click', function () {
+            // Close the modal
+            $('#successModal').modal('hide');
+            location.reload();
+        });
+        document.getElementById('errordelet').addEventListener('click', function () {
+            // Close the modal
+            $('#ErrorModal').modal('hide');
+        });
+    </script>
+    
+    
+    
+
+{% endblock content%}
