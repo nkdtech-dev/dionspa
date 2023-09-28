@@ -1,0 +1,239 @@
+    {% extends 'base.html' %}
+    {% block content %}
+
+<style>
+  .head {
+    position: relative;
+    
+  }
+  .container-head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-head {
+    text-align: center;
+    position: relative;
+  }
+  
+  .container-head h1 {
+    font-size: 3rem;
+    color: #af946a;
+    position: relative;
+    cursor: pointer; /* Add a pointer cursor on hover */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+    display: inline-block; /* Make the h1 inline-block to fit the hr element */
+  }
+  
+  .container-head h1::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: -10px; /* Adjust this value to control the distance of the reflection */
+    left: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+    transform: scaleY(-1);
+    z-index: -1;
+  }
+  @media(max-width: 1024px){
+    .btn-danger + .overlay {
+      display: none;
+      visibility: hidden
+  }
+  .container_second{
+    width: 100%;
+    padding-left: 5px;
+    padding-right:2px;
+  }
+  .mobi{
+    margin-left:0px;
+    margin-right:0px;
+  }
+  overlay{
+    display: none;
+  }
+  .col-md-4,
+ .col-md-8{
+    padding-left:6px;
+    padding-right:6px;
+  
+  }
+.top{
+  padding-top:80px;
+}
+.payform{
+
+  justify-content:center;
+  align-items: center;
+  display:flex;
+  }
+  }
+  .down{
+    padding-top:50px;
+  }
+  .last{
+    padding-bottom:30px;
+  }
+  /* Add the bounce effect on hover */
+  .container-head h1:hover {
+    transform: translateY(-5px); /* Adjust this value for the bounce height */
+  }
+  
+  /* Style the hr element */
+  .hr-blurry {
+    border: none;
+    height: 3px; /* Adjust the height of the line */
+    background: linear-gradient(to right, transparent 0%, #af946a 25%, #af946a 75%, transparent 100%);
+    border-radius: 5px; /* Add border-radius for curved edges */
+  }
+  .payform{
+
+  justify-content:right;
+  align-items: center;
+  display:flex;
+  }
+  
+</style>
+<div class="container-head head">
+  <h1 style="font-size:3rem;"> Reservation Details</h1>
+  </div>
+  <hr  class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:-5PX ;">
+        <div class="container mt-5 last">
+        
+                <div class="row mobi">
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Location:</th>
+                                <td>{{ reservations.location }}</td>
+                            </tr>
+                            <tr>
+                                <th>Room:</th>
+                                <td>{{reservations.room}}</td>
+                              </tr>
+                              <tr>
+                                <th>Date:</th>
+                                <td>{{ reservations.date }}</td>
+                              </tr>
+                              <tr>
+                                <th>Number of Guests:</th>
+                                <td>{{ reservations.seats }}</td>
+                              </tr>
+                              <tr>
+                                <th>Time:</th>
+                                <td>{{ reservations.time }}</td>
+                              </tr>
+                              <tr>
+                                <th>Formula:</th>
+                                <td>{{ reservations.formula_name }}</td>
+                              </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category, items in reservations.activities.items %}
+                                <tr>
+                                    <td rowspan="{{ items|length }}">{{ category }}</td>
+                                    {% for item, price in items.items %}
+                                    <td>{{ item }}</td>
+                                    <td><strong>€</strong>{{ price }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+               
+           
+        </div>
+        <div class="payform top"> 
+          <p>Total Price: <strong>€</strong><span id="total-price">{{ total_price }}{% if reservations.seats == '2' %} x<strong> 2(guest){%endif%}</strong> </span></p>
+          
+        </div>
+        <div class="payform">
+          <br>
+          <p>Platform charges: <strong>€</strong>1.68</p>
+        </div>
+   <!-- <div class="payform down">
+     
+         <form method="POST" action='{% url "makepayments" %}' id="payment">
+            {% csrf_token %}
+            <input type="hidden" id="chosen-time" name="payment" value="{{total_price}}">
+            <button class="btn btn-success" type="button" name="paybutton" id="paybutton">Make Payment</button>
+          </form> 
+    
+      </div>-->
+      
+        <div class="payform">
+          
+            <form method="post" action="{% url 'initiate_payment' %}">
+              {% csrf_token %}
+              <!-- Include any other form fields or information here -->
+              <button class="btn btn-success" type="submit">{% if reservations.seats == '2' %}Pay Now (10% Off){%else %} Pay Now{%endif%}</button>
+          </form>     
+        </div>
+  
+    </div>
+ 
+
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" onclick="this.style.opacity = '0'; setTimeout(() => this.style.display = 'none', 300);">
+            {{ message }}
+            <span class="close-btn">&times;</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to send payment data to the backend
+        function makePayment(totalPrice) {
+            $.ajax({
+                url: "{% url 'makepayments' %}",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: "{{ csrf_token }}", // Use Django template tag to get the CSRF token
+                    payment: totalPrice
+                },
+                success: function(response) {
+                    // Handle success response from the backend here
+                    console.log("Payment successful!");
+                    // You can also display a success message to the user
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response from the backend here
+                    console.error("Payment failed:", error);
+                    // You can display an error message to the user if needed
+                }
+            });
+        }
+
+        // Event handler for the "Make Payment" button
+        $("#paybutton").on("click", function() {
+            var totalPrice = $("#total-price").text();
+            makePayment(totalPrice);
+        });
+
+        // Event handler for the "Pay for 2" link
+      
+        
+    });
+   
+
+</script>
+
+    {% endblock content %}

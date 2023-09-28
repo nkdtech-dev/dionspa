@@ -1,0 +1,240 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Add DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.10/css/jquery.dataTables.min.css">
+    <style>
+        /* Style for the table */
+        #reservationTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #reservationTable th,
+        #reservationTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #reservationTable th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the modal */
+        .modal-header {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .modal-title {
+            font-size: 24px;
+        }
+
+        /* Style for buttons */
+        .btn-view-details {
+            background-color: #ff2600;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background-color: #DC3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        /* Style for search bar */
+        #searchBar {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .logout-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        /* Style for the search form */
+        form {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #ffbf00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Add some padding and margin for better spacing on mobile */
+        @media (max-width: 900px) {
+            .container {
+                margin: 5px;
+                padding: 5px;
+            }
+
+            .table th,
+            .table td {
+                padding: 5px;
+                font-size: 12px; /* Adjust font size for readability on small screens */
+            }
+
+            .btn-info {
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">Employee View - Reservations</h1>
+        
+        <!-- Search bar -->
+        <form method="GET" action="">
+            <input type="text" name="search" placeholder="Search by username">
+            <button type="submit">Search</button>
+        </form>
+        <button class = 'main' ><a href="" > Get back to main</a></button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Created</th>
+                    <th>Client</th>
+                    <th>Payment Status</th>
+                    <th>Payment Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if reservations_with_details %}
+                {% for reservation, details in reservations_with_details %}
+                <tr>
+                    <td>{{ reservation.res_id }}</td>
+                    <td>{{ reservation.created }}</td>
+                    <td>{{ reservation.client_reserve.username }}</td>
+                    <td>{% if reservation.payment_status %}Paid{% else %}Pending{% endif %}</td>
+                    <td>{{ reservation.payment_amount }} €</td>
+                    <td>
+                        <!-- View Details button (trigger modal) -->
+                        <button type="button" class="btn btn-info view-details" data-bs-toggle="modal" data-bs-target="#reservationDetailsModal{{ reservation.res_id }}">
+                            View Details
+                        </button>
+    
+                        <!-- Modal -->
+                        <div class="modal fade" id="reservationDetailsModal{{ reservation.res_id }}" tabindex="-1" role="dialog" aria-labelledby="reservationDetailsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="reservationDetailsModalLabel">Reservation Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Location:</strong> {{ details.location }}</p>
+                                        <p><strong>Room:</strong> {{ details.room }}</p>
+                                        <p><strong>Date:</strong> {{ details.date }}</p>
+                                        <p><strong>Seats:</strong> {{ details.seats }}</p>
+                                        <p><strong>Time:</strong> {{ details.time }}</p>
+                                        <p><strong>Formula Name:</strong> {{ details.formula_name }}</p>
+                                        <p><strong>Formula Price:</strong> {{ details.formula_price }} €</p>
+                                        
+                                        <p><strong>Activities:</strong></p>
+                                        <ul>
+                                            {% for activity_name, activity_price in details.activities.activities.items %}
+                                                <li><strong>{{ activity_name }}:</strong> {{ activity_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Meals:</strong></p>
+                                        <ul>
+                                            {% for meal_name, meal_price in details.activities.meals.items %}
+                                                <li><strong>{{ meal_name }}:</strong> {{ meal_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Drinks:</strong></p>
+                                        <ul>
+                                            {% for drink_name, drink_price in details.activities.drinks.items %}
+                                                <li><strong>{{ drink_name }}:</strong> {{ drink_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        
+                                        <p><strong>Hygiene:</strong></p>
+                                        <ul>
+                                            {% for hygiene_name, hygiene_price in details.activities.hygiene.items %}
+                                                <li><strong>{{ hygiene_name }}:</strong> {{ hygiene_price }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6">No results found!!!</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if reservations_test.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ reservations_test.previous_page_number }}">previous</a>
+                {% endif %}
+                
+                <span class="current-page">
+                    Page {{ reservations_test.number }} of {{ reservations_test.paginator.num_pages }}.
+                </span>
+                
+                {% if reservations_test.has_next %}
+                    <a href="?page={{ reservations_test.next_page_number }}">next</a>
+                    <a href="?page={{ reservations_test.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <a href="{% url 'logout' %}" class="btn btn-danger logout-button">Logout</a>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.10/js/jquery.dataTables.min.js"></script>
+
+    <!-- Add DataTables initialization -->
+    <script>
+        $(document).ready(function() {
+            $('#reservationTable').DataTable();
+        });
+    </script>
+</body>

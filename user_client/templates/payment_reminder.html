@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color:#af946a;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color:#af946a;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Urgent: Secure Your Reservation – 24-Hour Reminder!</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ reservation.client_reserve.first_name }},</p>
+            <p>Time is running out! Your reservation with us is expiring in just 24 hours. ⏳</p>
+            <p>To ensure your spot and enjoy our exceptional experience, please complete your payment now. Here's how:</p>
+            <ol>
+                <li>Log in to your account at <a href="http://www.lileospa.com/" >.</li>
+                <li>Review your reservation details.</li>
+                <li>Make a secure payment through our trusted gateway.</li>
+            </ol>
+            <p>Got questions? Reach out to our friendly support team at info@lileospa.com or + 32 69 30 64 97.</p>
+            <p>We appreciate your choice and can't wait to host you. Act now to avoid disappointment!</p>
+            <p>Best regards,<br>The LilOspa Team 🌟</p>
+            <p><a href="http://www.lileospa.com/" class="button">Complete Payment Now</a></p>
+        </div>
+    </div>
+</body>
+</html>

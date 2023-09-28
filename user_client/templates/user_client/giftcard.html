@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+
+/* Style the container */
+.container {
+    text-align: center;
+}
+
+/* Style the gift card icon */
+.gift-card-icon {
+    font-size: 100px;
+    animation: bounce 2s infinite;
+}
+.gift{
+    display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40vh;
+            margin: 0;
+}
+
+/* Define the bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+</style>
+
+<div class="gift">
+    <div class="container">
+    <h1>No Available Gift Card</h1>
+    <p>There are currently no available gift cards.</p>
+    <i class="fas fa-gift gift-card-icon"></i>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,533 @@
+  *{
+    font-family: 'Playfair Display', sans-serif;
+}
+@font-face {
+    font-family: 'TradeGothicLTPro-BdCn20';
+    src: url('Fonts\TradeGothicLTStd-BdCn20.otf') format('otf2'),
+         url('Fonts\TradeGothicLTStd-BdCn20.otf') format('otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    margin: 0;
+    box-sizing: border-box;
+    background-color:#f8f9fa;
+}
+.top-nav{
+    display: flex;
+    justify-content: center;
+    background-color: #f3eee7;
+    padding: 7px;
+}
+.top-nav i{
+color: #b39261;
+}
+
+
+.icons{
+    padding: 7px;
+}
+.get-in-touch{
+    margin-left: 60%;
+}
+.contacts{
+    padding: 9px;
+}
+#email{
+    margin-left: 5px;
+}
+.mainpage-video {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center; 
+  }
+  
+.bottom-nav{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 100px;
+}
+.nav-links{
+    padding: 20px;
+    text-decoration: none;
+    font-size: 15px;
+    color:#b39261;
+}
+.nav-links.active{
+    text-decoration: underline; 
+  }
+.appointment-btn{
+
+    color: #f5faf6;
+    border: none;
+    border-radius: 1px;
+    background-color: #b39261;
+}
+
+.section-food{
+    background-color: #f3eee7;
+}
+.container-food{
+    background-color: #f3eee7;
+    padding-top: 100px;
+    margin-top: -100px;
+}
+.appointment-btn:hover {
+    background-color: #f3eee7;
+    color: #b99f74;
+}
+#calendar-form{
+    margin-top: 5%;
+}
+
+
+.welcome-container{
+    position: relative;
+    text-align: center;
+}
+.welcome-here {
+    position: absolute;
+    top: 70%;
+    right: 0%; 
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 400px; 
+    text-align: center; 
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 50px;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-here p {
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 10px;        
+}
+
+.welcome-here button {
+    background-color: #b39261;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.welcome-here button:hover {
+    background-color: #5b4b2e;
+}
+.section{
+    background-color: white;
+}
+
+.section-heading,.section-text{
+    padding: 10px;
+    width: 60%;
+    text-align: justify;
+    margin: 50px auto;
+}
+.col-md-9 p{
+    font-size: 13px; 
+    max-width: 800px;
+}
+.col-md-3 p{
+    font-size: 13px; 
+    max-width: 800px;
+}
+hr{
+    width: 50px;
+    margin: 10px 22%;
+}
+#services {
+    background-color: #f3eee7;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: -80px;
+    margin-right: 120px;
+}
+.col-6 div{
+    background-color: #fff;
+    font-size: 13px; 
+    width: 200%;
+    
+}
+
+
+.online-btn{
+    margin-left:21%;
+}
+/* .row{
+   margin: 30px;
+} */
+
+.row-image{
+    margin: auto;
+    border-radius: 10px;
+    width: 250px;
+}
+.date-header{
+    text-align: center;
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: 'TradeGothicLTPro-BdCn20', Arial, sans-serif;
+    font-weight: 900;
+}
+/* --------------------------book lading page-------------------------------------- */
+#calendar {
+    width: 350px;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 10px;
+    
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#prevMonth,
+#nextMonth {
+    background-color: #b3926157;
+    color: rgba(0, 0, 0, 0.432);
+    border: none;
+    border-radius: 50%; 
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+
+#prevMonth[disabled],
+#nextMonth[disabled] {
+    background-color: #cccccc57;
+    cursor: not-allowed;
+}
+
+#prevMonth:focus,
+#nextMonth:focus {
+    outline: none;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    text-align: center;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.selected {
+    background-color: #b39261;
+    color: white;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    padding: 10px 0;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+.form-date{
+  height: 10vh;
+  text-align: center  ;
+  font-family: 'TradeGothicLTPro-BdCn20', Arial, sans-serif;
+
+}
+.date-btn {
+  color: #f5faf6;
+  border: none;
+  border-radius: 1px;
+  background-color: #b39261;
+  width: 50%;
+  margin-top: 20px;
+  padding: 10px;
+  margin-top: 5%;
+  font-family: 'TradeGothicLTPro-BdCn20', Arial, sans-serif;
+  display: inline-block;
+}
+.option-guest{
+  font-family: 'TradeGothicLTPro-BdCn20', Arial, sans-serif;
+}
+.custom-input {
+border: none;
+border-bottom: 1px solid #ccc; 
+padding: 5px; 
+width: 50%;
+
+}
+.submit-btn{
+
+    color: #f5faf6;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #b39261;
+    padding-top: 10px;
+    font-family: 'TradeGothicLTPro-BdCn20', Arial, sans-serif;;
+    font-size: 24px;
+}
+.submit-btn:hover{
+background-color: #5b4b2e;
+color: #fff;
+}
+
+.b{
+    margin-top: 2%;
+}
+.group{
+    border-radius: 5px;
+    width: 100%;
+    padding-top: 10px;
+    font-size: 20px;
+}
+.group :hover{
+    border:none;
+}
+
+.custom-input:focus,
+select.custom-input:focus {
+outline: none;
+border-color: #007bff1a; 
+}
+
+footer{
+    width: 100%;
+}
+
+
+
+
+@media (max-width: 1024px) {
+  body {
+    max-width: 100%;
+  }
+  div{
+    max-width: 100%;
+  }
+  .mainpage-video{
+    max-width: 100%;
+  }
+  main{
+    max-width: 100%;
+  }
+  .mainpage-video{
+    max-width: 100%;
+  }
+  .row-image{
+    max-width: 100%;
+  }
+  .features-3{
+    width: 210px;
+    margin-left: -20px;
+    max-width: fit-content;
+  }
+  #calendar{
+    padding-top: 100px;
+  }
+
+    .welcome-here{
+        max-width: 150px;
+        height:100px;
+        right: 0;
+        top: 200px;
+    }
+    .mobile{
+        display: none;
+    }
+  .top {
+    display: none;
+  }
+  .destop-image{
+    display: none;
+  }
+  .top-nav{
+    padding: 10px;
+  }
+
+  .nav-links {
+        display: block;
+        padding: 10px 0;
+        font-size: 18px;
+    }
+    .welcome-here {
+        width: 90%;
+        right: 50%;
+        transform: translate(50%, -50%);
+    }
+
+  .logo-container {
+    display: none;
+  }
+
+  .sidebar {
+    width: 0;
+    position: fixed;
+    top: 75px;
+    left: 0;
+    height: 100%;
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+    transition: 0.8s ease-in-out;
+    padding-top: 60px;
+    z-index: 1000;
+    
+  }
+
+  .sidebar.active {
+    width: 250px;
+    
+  }
+
+  .sidebar .navbar-nav {
+    flex-direction: column;
+  }
+
+  .sidebar .nav-item {
+    width: 100%;
+    text-align: left;
+    
+  }
+  .sidebar .nav-item:hover {
+    color: #fff;
+    background-color: #c7ae89;
+  }
+
+  /* Adjust the appearance of the sidebar toggle icon */
+  .navbar-toggler-icon {
+    background-color: #343a4000;
+  }
+
+  /* Add an overlay when sidebar is active */
+  .overlay {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 900;
+  }
+
+  .sidebar.active + .overlay {
+    display: block;
+    border: none;
+  }
+  .navbar-toggler {
+    order: 2; /* Move the toggler to the right */
+    margin-left: auto;
+     border: none;
+     outline: none;
+     box-shadow: none;
+     padding-right: 15px;
+  
+  }
+  .navbar-toggler:focus {
+  outline: none;
+  border: none;
+     outline: none;
+     box-shadow: none;
+  }
+  
+  .navbar-toggler:active{
+    border: none;
+
+  }
+  .logo-container-mobile{
+    display: block;
+  }
+
+}
+.mobile-logo{
+  width: 120px;
+  height: auto;
+  padding-left: 10px;
+}
+.destop-image{
+  width: 300px;
+}
+@media (min-width: 1026px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* styles.css */
+/* Style for Django messages */
+.messages-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.message {
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 18px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  animation: fadeInOut 2.5s;
+  opacity: 0;
+  width: 400px; /* Adjust the width as needed */
+  margin-bottom: 10px; /* Add some spacing between messages */
+}
+
+.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.info {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Keyframes for fading in and out */
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  15%, 85% { opacity: 1; }
+}
+
+/* Close button for messages */
+.close-btn {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  color: #f44336;
+}

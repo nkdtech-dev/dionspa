@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #fcfcfc;
+            background-color: #af946a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        .signature {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reservation Reminder</h1>
+        
+        <p>Hello {{ user.username }},</p>
+        
+        <p>Your reservation is tomorrow. Don't forget!</p>
+        
+        <!-- You can add more content here, including images -->
+        <img src="{% static 'images/logo.png' %}" alt="Site Logo">
+
+        
+        <p>Best regards,</p>
+        <p class="signature">Lile Ospa</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+@media (min-width: 1024px) {
+.container {
+  max-width: 60%;
+
+}
+.text-center-mobile{
+  display: none;
+}
+.login-row{
+  margin-top: -3%%;
+}
+}
+
+@media (max-width: 1024px) {
+  .text-center-desktop{
+    display: none;
+    margin-top: -120%;
+  }
+ 
+}
+
+.head {
+  position: relative;
+  
+}
+.container-head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container-head {
+  text-align: center;
+  position: relative;
+}
+
+.container-head h1 {
+
+  color: #af946a;
+  position: relative;
+  cursor: pointer; /* Add a pointer cursor on hover */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+  display: inline-block; /* Make the h1 inline-block to fit the hr element */
+}
+@media(min-width: 1024px){
+  .container-head h1 {
+    font-size: 3rem;
+  }
+}
+@media(max-width: 1024px){
+  .container-head h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.container-head h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: -10px; /* Adjust this value to control the distance of the reflection */
+  left: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+  transform: scaleY(-1);
+  z-index: -1;
+}
+
+/* Add the bounce effect on hover */
+.container-head h1:hover {
+  transform: translateY(-5px); /* Adjust this value for the bounce height */
+}
+
+/* Style the hr element */
+.hr-blurry {
+  border: none;
+  height: 3px; /* Adjust the height of the line */
+  background: linear-gradient(to right, transparent 0%, #af946a 25%, #af946a 75%, transparent 100%);
+  border-radius: 5px; /* Add border-radius for curved edges */
+}
+</style>
+<div class="container" style="padding-bottom: 5%; padding-top: 5%;">
+    <form class="login-form" method="POST" action=''>
+        {% csrf_token %}
+        <div class="container-head head">
+          <h1 style="font-size:3rem;"> SPA ACCOUNT LOGIN</h1>
+          </div>
+          <hr  class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:-5PX ;"> 
+        
+        <div class="row login-row" style="padding-bottom: 20px;">
+            <p class="text-center-desktop" style="padding-bottom: 10px;">Log in to your spa account to use your saved personal and payment details. view your upcoming and previous Reservations</p>
+            <p class="text-center-mobile" style="padding-bottom: 10px;">Log in to your spa account to use your saved personal and payment details.</p>
+
+            <div class="form-group col-md-6" style="padding-left: 10px; pading-top:8px;">
+                <input type="email" class="form-control" id="email" placeholder="Email:" name="email">
+            </div>
+            <div class="form-group col-md-6" style="padding-right: 10px;padding-top:7px; margin-top:-5px;">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="loginPasword">
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary" name="loginButton">Log In</button>
+            {% load socialaccount %}
+            {% if check != '' %}
+            <button type="button" class="btn" style="background-color:#f1f2ff; margin-top: 3px;"><a href='{% provider_login_url "google"%}?next={% url "confirmReservation" %}' style="text-decoration:none;"> <img src='{% static "images/google.png" %}' alt="Google" width="30" height="30">Login with Google</a></button>
+            {% else %}
+            <button type="button" class="btn" style="background-color:#f1f2ff; margin-top: 3px;"><a href='{% provider_login_url "google"%}?next={% url "home" %}' style="text-decoration:none;"> <img src='{% static "images/google.png" %}' alt="Google" width="30" height="30">Login with Google</a></button>
+            {% endif %}
+             {% if  activation_check == 1 %}
+          <button type="submit" class="btn btn-primary" ><a href='{% url "resend_activation" %} ' style="text-decoration: none; color: rgb(244, 253, 236);">Generate link</button>
+            {% endif %}
+          </div>
+          <div class="form-group text-center" style="padding-top:20px;">
+            <a href='{% url "password-reset" %}'>Forgot password</a>
+        </div>
+        </div>
+        
+    </form>
+</div>
+
+<div class="container mobile-create" style="padding-top: 20px; padding-bottom: 30px;">
+    <form class="signup-form" method="Post" action='' id="signup-form">
+        {% csrf_token %}
+        <div class="container-head head">
+          <h1 style="font-size:3rem;">CREATE AN ACCOUNT</h1>
+          </div>
+          <hr  class="hr hr-blurry" style="width: 100%; margin-left: -1%; margin-top:-5PX ;"> 
+
+        <div class="row">
+              <p class="text-center">Creating an account with us means you will be able to view your upcoming and past Reservations </p>
+              <div class="form-group col-md-6" style="padding-bottom: 8px; padding-top: 8px;">
+                <input type="text" class="form-control" id="firstName" placeholder="Name:" name="fname" 
+                       required pattern=".{3,}" title="First name must be at least 3 characters">
+            </div>
+            
+            <div class="form-group col-md-6" style="padding-bottom: 8px; padding-top: 8px;">
+              <input type="tel" class="form-control" id="phone" placeholder="Phone Number" name="phone">
+              <input type="hidden" id="countryCode" name="countryCode">
+              
+            </div>
+              <div class="form-group col-md-12" style="padding-bottom: 8px; padding-top: 8px;">
+                <input type="email" class="form-control" placeholder="Email:" id="signupEmail" name="signupEmail" required>
+              </div>
+              <div class="form-group col-md-6" style="padding-bottom: 8px; padding-top: 8px;">
+                <input type="password" class="form-control" id="signupPassword" placeholder="Password:" name="signupPassword" 
+                       required pattern=".{8,}" title="Password must be 8 characters or more">
+                <p class="password-length-error" style="color: red; display: none;">Password must be 8 characters or more</p>
+                <div class="password-strength-meter">
+                    <div class="strength-bar"></div>
+                    
+                    <p class="strength-text">Strength: <span class="strength-label"></span></p>
+                </div>
+            </div>
+            <div class="form-group col-md-6" style="padding-bottom: 8px; padding-top: 8px;">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password:" 
+                       required pattern=".{8,}" title="Password must be 8 characters or more">
+                <p class="password-match-error" style="color: red; display: none;">Passwords do not match</p>
+                <p class="password-length-error" style="color: red; display: none;">Password must be 8 characters or more</p>
+            </div>
+            
+            
+            
+              </div>
+              <div class="form-group form-check" style="padding-bottom: 8px; padding-top: 8px;">
+                <input type="checkbox" class="form-check-input" id="acceptTerms" name="acceptTerms" required>
+                <label class="form-check-label" for="acceptTerms">I accept the <a href='{% url "policy" %}'>Terms & Conditions</a> for The liolspa</label>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="receivePromotions"  name="receivePromotions" checked>
+                <label class="form-check-label" for="receivePromotions">I’d like to receive promotions & spa news by email</label>
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary" name="signupbutton">Sign Up</button>
+                {% load socialaccount %}
+                {% load socialaccount %}
+                {% if check != '' %}
+                <button type="button" class="btn" style="background-color:#f1f2ff; margin-top: 3px;"><a href='{% provider_login_url "google"%}?next={% url "confirmReservation" %}' style="text-decoration:none;"> <img src='{% static "images/google.png" %}' alt="Google" width="30" height="30">Login with Google</a></button>
+                {% else %}
+                <button type="button" class="btn" style="background-color:#f1f2ff; margin-top: 3px;"><a href='{% provider_login_url "google"%}?next={% url "home" %}' style="text-decoration:none;"> <img src='{% static "images/google.png" %}' alt="Google" width="30" height="30">Login with Google</a></button>
+                {% endif %}                           
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% if messages %}
+      <div class="messages-container">
+          {% for message in messages %}
+              <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" 
+                   onclick="this.style.opacity = '0'; setTimeout(() => this.style.display = 'none', 300);">
+                  {{ message }}
+                  <span class="close-btn">&times;</span>
+              </div>
+          {% endfor %}
+      </div>
+  {% endif %}
+   
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // JavaScript
+var input = document.querySelector("#phone");
+var fullPhoneInput = document.querySelector("#fullPhone");
+var countryCodeInput = document.querySelector("#countryCode"); // Added this line
+
+var iti = window.intlTelInput(input, {
+    separateDialCode: true,
+    // Set the default country code here (e.g., "US" for United States)
+    initialCountry: "BE",
+});
+
+input.addEventListener("input", function () {
+  var selectedCountryData = iti.getSelectedCountryData();
+  var countryCode = selectedCountryData.dialCode;
+  document.querySelector("#countryCode").value = countryCode;
+});
+
+</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const signupPassword = document.getElementById('signupPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const passwordLengthError = document.querySelector('.password-length-error');
+        const passwordStrengthMeter = document.querySelector('.password-strength-meter');
+        const strengthBar = passwordStrengthMeter.querySelector('.strength-bar');
+        const strengthLabel = passwordStrengthMeter.querySelector('.strength-label');
+        const passwordMatchError = document.querySelector('.password-match-error');
+
+        confirmPassword.addEventListener('input', function () {
+            if (signupPassword.value !== confirmPassword.value) {
+                passwordMatchError.style.display = 'block';
+            } else {
+                passwordMatchError.style.display = 'none';
+            }
+        });
+
+        signupPassword.addEventListener('input', function () {
+            if (signupPassword.validity.patternMismatch) {
+                passwordLengthError.style.display = 'block';
+            } else {
+                passwordLengthError.style.display = 'none';
+            }
+
+            if (signupPassword.value.length > 0) {
+                passwordStrengthMeter.style.display = 'block';
+                const strength = checkPasswordStrength(signupPassword.value);
+                updateStrengthMeter(strength);
+            } else {
+                passwordStrengthMeter.style.display = 'none';
+            }
+        });
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            return strength;
+        }
+
+        function updateStrengthMeter(strength) {
+            const strengthLevels = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
+            const barColors = ['#dc3545', '#ff8800', '#ffc107', '#28a745', '#20c997'];
+
+            strengthLabel.textContent = strengthLevels[strength];
+            strengthBar.style.width = (strength * 25) + '%';
+            strengthBar.style.backgroundColor = barColors[strength];
+        }
+    });
+</script>
+
+
+
+{% endblock content %}

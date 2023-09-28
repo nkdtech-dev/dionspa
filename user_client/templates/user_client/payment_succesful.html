@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>success</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body onload="showPopup()">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script>
+        function showPopup() {
+            Swal.fire({
+                title: 'Payment status',
+                text: 'The Payment was Succesful!!!          \n\n you will be redirected to the homepage in few sec...',
+                icon: 'success',
+                timer: 5000,
+                timerProgressBar: true,
+            }).then(() => {
+                window.location = '{% url "home" %}';
+            })
+        }
+    </script>
+</body>
+</html>

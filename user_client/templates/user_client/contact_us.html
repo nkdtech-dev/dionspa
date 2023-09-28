@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    /* Custom CSS for form elements */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-control {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 10px 0;
+        transition: border-color 0.2s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    .head::before {  
+        transform: scaleX(0);
+        transform-origin: bottom right;
+    }
+
+    .head:hover::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+    .head::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        inset: 0 0 0 0;
+        background: #f3eee7;
+        z-index: -1;
+        transition: transform .3s ease;
+        -webkit-box-reflect:below 1px linear-gradient(transparent, #0009);
+    }
+
+    .head {
+        position: relative;
+    }
+    .appointment-btn {
+        color: #f5faf6;
+        border: none;
+        border-radius: 1px;
+        background-color: #b39261;
+    }
+    .container-head {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container-head {
+        text-align: center;
+        position: relative;
+    }
+    .okbutton {
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+    .close {
+        background-color: #af946a;
+        border-radius: 10px;
+    }
+
+    .container-head h1 {
+        color: #af946a;
+        position: relative;
+        cursor: pointer; /* Add a pointer cursor on hover */
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
+        display: inline-block; /* Make the h1 inline-block to fit the hr element */
+    }
+
+    .container-head h1::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: -10px; /* Adjust this value to control the distance of the reflection */
+        left: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* Adjust the color and transparency here */
+        transform: scaleY(-1);
+        z-index: -1;
+    }
+
+    /* Add the bounce effect on hover */
+    .container-head h1:hover {
+        transform: translateY(-5px); /* Adjust this value for the bounce height */
+    }
+
+    @media (min-width: 1024px) {
+        .container-head h1 {
+            font-size: 3rem;
+            color: #af946a;
+            position: relative;
+            cursor: pointer; /* Add a pointer cursor on hover */
+            transition: transform 0.3s ease; /* Add a smooth transition effect */
+            display: inline-block; /* Make the h1 inline-block to fit the hr element */
+        }
+    }
+
+    .card {
+        border: none;
+    }
+
+
+</style>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <!--Section: Contact v.2-->
+            <section class="mb-4">
+                <!--Section heading-->
+                <div class="container-head head">
+                    <h1 class='phone'> Contact Us</strong></h2>
+                </div>
+
+                <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+                    a matter of hours to help you.</p>
+
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-9 mb-md-0 mb-5">
+                        <form id="contact-form" name="contact-form" action="" method="POST">
+                            {% csrf_token %}
+                            <!--Grid row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="Your email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="form-row">
+                                <!--Grid column-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea type="text" id="message" name="message" rows="4" class="form-control" placeholder="Your message" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <div class="text-center text-md-left">
+                                <button type="submit" class="appointment-btn btn btn-lg b button" id="sendbutton">Send</button>
+                            </div>
+                            <div class="status"></div>
+                        </form>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-3 text-center">
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fas fa-map-marker-alt fa-2x" style="color:red;"></i>
+                                <p>Mouscron</p>
+                                <p>Tournai</p>
+                            </li>
+
+                            <li><i class="fas fa-phone mt-4 fa-2x" style="color:green;"></i>
+                                <p>+ 32 69 30 64 97</p>
+                            </li>
+
+                            <li><i class="fas fa-envelope mt-4 fa-2x" style="color:#af946a;"></i>
+                                <p>info@lileospa.com</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successMEssage" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align:center;" id="successModalLabel">Mail Sent</h5>
+                <button type="button" class="close" id="succesdelet" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your message has been sent successfully.<br>We will get back to you as soon as possible.
+            </div>
+            <div class="container-fluid okbutton">
+                <button type="button" class="close" id="deletebutton" data-dismiss="modal" aria-label="Close"> ok </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ErrorMEssage" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align:center;" id="successModalLabel">Error sending Mail</h5>
+                <button type="button" class="close" id="succesdelet" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+An error occured while sending <br> please try again             </div>
+            <div class="container-fluid okbutton">
+                <button type="button" class="close" id="deletebutton" data-dismiss="modal" aria-label="Close"> ok </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to check if all form fields are filled
+        function validateForm() {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var subject = $('#subject').val();
+            var message = $('#message').val();
+        }
+
+        $('#contact-form').submit(function(e) {
+            e.preventDefault();
+            
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        // Handle success, e.g., display a success message
+                        $('#successMEssage').modal('show');
+                        
+                        // You can also clear the form or redirect the user here
+                    },
+                    error: function(error) {
+                        // Handle error, e.g., display an error message
+                        $('#ErrorMEssage').modal('show');                       
+                    }
+                });
+            
+        });
+    });
+
+    document.getElementById('succesdelet').addEventListener('click', function () {
+        // Close the modal
+        $('#successMEssage').modal('hide');
+    });
+
+    document.getElementById('deletebutton').addEventListener('click', function () {
+        $('#successMEssage').modal('hide');
+    });
+    document.getElementById('deletebutton').addEventListener('click', function () {
+        $('#ErrorMEssage').modal('hide');
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,386 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<style>
+  .carousel {
+    background: #000; /* Background color for the carousel */
+}
+.carousel-item {
+    transition: opacity 1s ease-in-out;
+}
+.carousel-item img {
+    width: 100%;
+    height: auto;
+}
+
+
+a {
+  color: #af946a;
+}
+.serenity-text{
+  font-size:40px;
+}
+.gladd{
+  padding-bottom:80px;
+}
+
+@media (max-width: 1024px) {
+  .serenity-text {
+    width: 100%;
+    padding: 0;
+    font-size:24px;
+
+  }
+
+ 
+}
+
+@media (max-width: 1024px) {
+  .col-md-8 video {
+    width: 100%; /* Make the video take the entire width on mobile */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .col-md-8,
+  .col-md-4 {
+    width: 100%;
+    padding: 0;
+  }
+  .mo{
+    padding-left:25px;
+  }
+  
+  #services {
+    padding-bottom: 40px;
+    padding-top: 40px;
+    margin:0px 0px 0px 0px;
+    padding-left:0px;
+    padding-right:0px;
+  }
+  .mobi{
+    margin-left:0px;
+    margin-right:0px;
+  }
+#ser{
+  padding-left:0px;
+  padding-right:0px;
+}
+
+  .col-6 {
+    width: 100%;
+  }
+
+  .col-md-4 {
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+  .section_second{
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+.section_second{
+  width: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.container_second{
+  width: 100%;
+  padding-left: 5px;
+  padding-right:2px;
+}
+  img.img-fluid {
+    width: 100%;
+  }
+  
+
+  h6 {
+    font-size: 16px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+  .nomobile{
+    display:none;
+    visibility: hidden;
+  }
+  .mobile-O{
+    padding-left:0px;
+    margin-left:0px;
+    
+  }
+  .las-txt{
+    font-size:20px
+  }
+  .gladd{
+    padding-bottom:50px;
+  }
+  .dontonmobile{
+    display:none;
+    visibility:hidden;
+  }
+  
+  
+
+}
+@media(min-width: 1024px){
+  .big{
+    margin-left:-20px;
+  }
+  .nodestop{
+    display:none;
+    visibility:hidden;
+  }
+  .las-txt{
+    font-size: 40px;
+  }
+  .las_vid{
+    padding-left: 50px;
+  }
+  
+  .mo{
+    padding-left: 50px;
+  }
+  .second_column{
+    padding-left: 50px;
+     padding-top: 10%;
+  }
+#ser{
+margin-left:-80px;
+}
+#services{
+  margin-left:-80px; 
+}
+p[style*="font-size: 40px"] {
+  font-size: 30px; /* Adjust font size for mobile */
+}
+video {
+  width: 100%;
+  height: auto;
+}
+.margin{
+  margin-left: 0px;
+}
+}
+
+
+
+
+
+</style>
+
+<main class="gladd">
+  <div class="mainpage-video">
+    {% if user.is_authenticated %}
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src='{% static  "images\frontconver1.jpg" %}' alt="liospa">
+          </div>
+          <div class="carousel-item">
+              <img src='{% static  "images\frontcover.jpg" %}' alt="liospa">
+          </div>
+          <div class="carousel-item">
+              <img src='{% static  "images\front 3.jpg" %}' alt="liospa">
+          </div>
+          <div class="carousel-item">
+            <img src='{% static  "images\front 2.jpg" %}' alt="liospa">
+        </div>
+      </div>
+  </div>
+  {% else %}
+    <!-- Add the video element with controls and autoplay -->
+    <video controls autoplay width="98%" height="20%" loop muted poster='{% static  "images\frontconver1.jpg" %}'>
+      <source src='{% static "videos\sir dion spa.mp4" %}' type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {% endif %}
+    <div class="welcome-here dontonmobile">
+      <p>
+          Discover Serenity at <br><h3 style="color: aqua;">L'Île O Spa</h3> <br> <br>Unwind and Recharge in Style<br>
+      </p>
+
+      <a href='{% url "reserveDate" %}' style="text-decoration:none;"><button>Meet Now</button></a>
+      <a href="#more" style="text-decoration:none;"><button>Read more</button></a>
+    </div>
+  </div>
+  
+  <div class="container serenity-text">
+    <p>The Essence of Serenity</p>
+    <h6><a href="#indexform"><u>Discover More</u></a></h6>
+  </div>
+</main>
+
+<div class="section_second big container-fluid gladd">
+<div class="row section_second mobile-O">
+  <div class="container_second">
+      <div class="row section_second1 mobi">
+        
+        <div class="col-md-8 section_second gladd mo">
+          <img src='{% static "images\liospa.jpg" %}' alt="Image 1" class="img-fluid" width="100%">
+          <h6>Space & Enviroment</h6>
+          <h4>Explore The world of Confort</h4>
+          <p>
+             Discover an oasis of comfort at Ile O Spa. Our thoughtfully designed space envelops you in luxury.
+               Sink into plush furnishings, unwind in serene treatment rooms, and experience ultimate relaxation.
+               Your well-being is our focus, and our inviting ambiance ensures a truly exceptional experience.
+          </p>
+          <a href='{% url "reserveDate" %}' style="color: #af946a;"> <u>Explore destinations</u></a>
+        </div>
+    
+        <!-- Second column (2/5 width) -->
+        <div class="col-md-4 container_second mo ">
+          <img src='{% static "images\liospa2.jpg"%}' alt="Image 2" class="img-fluid nomobile" width="100%">
+          <img src='{% static "images\frontcover.jpg"%}' alt="Image 2" class="img-fluid nodestop" width="100%">
+          <h6>Confort & friends</h6>
+          <h4>Calm the mind with friends</h4>
+          <p>Experience the perfect blend of comfort and companionship at our spa. Our inviting space is tailored for shared relaxation with friends, 
+            offering a tranquil escape where you can unwind, indulge, and create lasting memories together.</p>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="container container-fluid margin container_second gladd" style="max-width: 100%; margin-bottom:20px; background-color: #f3eee7; padding-bottom: 15px; padding-top:15px;">
+<div class="row justify-content-center  ">
+    <div class="col-md-8">
+        <form action='{% url "reserveDate" %}' method="POST" id="indexform">
+          {% csrf_token %}
+            <div class="form-container container_second container-fluid">
+              <div class="row mobi container_second">
+                <div class="form-field col-md-4">
+                    <label for="datetime" class="label-1">SELECT DATE</label>
+                    <input type="date" class="form-control group" id="datetime" name="datetime" required>
+                </div>
+                <div class="form-field col-md-4">
+                    <label for="party-size" class="label-1">Number of Guest</label>
+                    <select class="form-control group" id="party-size" name="Guest" required>
+                        <option value="1">select Number of guest</option>
+                        <option value="1">Alone </option>
+                        <option value="2">with a Friend</option>
+                        
+                    </select>
+                </div>
+                <div class="form-field  col-md-4 b">
+                    <button type="submit" class="btn submit-btn btn-lg " name="homesubmit">Choose spa Activity</button>
+                </div>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<div style="background-color: #f3eee7" id="ser" gladd>
+<div class="row container-fluid" id="services" style="padding-bottom: 80px; padding-top: 80px;">
+<div class="col-6 col-md-4 class1 row-image container-fluid gladd">
+  <img src="{% static 'images/pexels-mikhail-nilov-6945075.jpg' %}" alt="features-1" width="200%">
+  <div>
+    <h6>Comfort & Privacy</h6>
+    <h4>Get quite time</h4>
+    <p>Relax in our spa knowing your privacy is our priority. Enjoy peaceful tranquility and rejuvenation, all in a private oasis just for you.</p>
+</div>
+</div>
+<div class="col-6 col-md-4 class1 row-image gladd">
+  <img src="{% static 'images/pexels-mikhail-nilov-6945094.jpg' %}" alt="features-2" width="200%">
+  <div>
+    <h6>meditation</h6>
+    <h4>Calm The Mind</h4>
+    <p>Discover serene meditation spaces at our spa for peaceful relaxation and rejuvenation.  </div>
+</div>
+<div class="col-6 col-md-4 class1 row-image container_second container-fluid gladd">
+  <img src='{% static "images/pexels-karolina-grabowska-4498281.jpg" %}' alt="features-3" width="200%">
+  <div>
+    <h6>Comfort & Friends</h6>
+    <h4>Experience the joy</h4>
+    <p>Experience joyful serenity in our spa's meditation havens, perfect for personal reflection or shared happiness. Find your peaceful escape for well-being.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="section-food container-fluid container_second">
+<div class="row">
+  <div class="container-food container_second">
+      <div class="row container_second mobi">
+        
+        <div class="col-md-6 container_second gladd">
+          <img src='{% static "images\liospa5.jpg" %}' alt="Image 1" class="img-fluid" width="80%" >
+          
+  
+        </div>
+    
+        <!-- Second column (2/5 width) -->
+        <div class="col-md-6 section_second second_column ">
+          <p class="las-txt" style="color: black; font-weight: bolder; font-family: Playfair Display;">Savor Our Delicious Spa Offerings</p>
+          <h6></h6>
+          <p>Discover delightful meals and refreshing drinks that add a special touch to your spa visit.
+             Our menu is designed to offer you tasty and nourishing options, from healthy dishes to flavorful beverages.
+              Whether you're seeking a light snack or a satisfying meal, our offerings are here to enhance your relaxation and wellness journey</p>
+              
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="section gladd" style="padding-top:60px; padding-bottom: 60px;">
+
+  <div class="container container_second mobi" >
+      <div class="row mobi section_second">
+        <!-- First column (3/5 width) -->
+        
+
+        <div class="col-md-4 container_second container-fluid" id="more">
+          <p  class="las-txt" style="color: black;font-weight: bolder; text-align:center; font-family: Playfair Display;">Who We are!!</p>
+          <p style="padding-top: 20px;width:100%; font-family: Arial, Helvetica, sans-serif;">
+            Ideally located in the heart of the Eurodistrict of Lille,
+            L'Île O Spa opens its doors to you for moments dedicated to well-being 
+            and beauty. Enjoy moments of relaxation, alone or in pairs for optimal relaxation
+            and to recharge your batteries. Our teams welcome you in a private spa to offer 
+            you treatments studied and carried out with the utmost professionalism. Whether 
+            you are tempted by a relaxing massage or rather a slimming treatment, 
+            we can meet all your requests in a pleasant and upscale setting. 
+            The products and methods used in our wellness center are at the forefront of
+            what is done in the field of aesthetics to guarantee you optimal results.
+          </p>
+          <button class="appointment-btn btn btn-lg button"><a style="text-decoration:none; color:#fff;" href='{% url "reserveDate" %}'>Visit Us</a></button>
+        </div>
+        
+        <div class="col-md-8 container_second container-fluid las-vid">
+          <video controls autoplay width="100%" height="100%" loop muted poster='{% static "images\front 3.jpg" %}'>
+            <source src='{% static "videos\dion vid 2.mp4" %}' type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" 
+                 onclick="this.style.opacity = '0'; setTimeout(() => this.style.display = 'none', 300);">
+                {{ message }}
+                <span class="close-btn">&times;</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock content %}
